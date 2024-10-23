@@ -11,3 +11,7 @@ build/mjs -e '1 + 2 * 3'
 ./build/mjs -e 'ffi("int atoi(char*)")("12") + 40'
 
 gcc test/t01.c mjs.c -o test/t01.out && test/t01.out
+
+
+See also:
+- https://github.com/cesanta/elk smaller, but no VM, just interepting AST
