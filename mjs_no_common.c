@@ -1542,8 +1542,11 @@ extern "C" {
 
 struct mjs_bcode_part;
 
+#if MJS_ENABLE_DEBUG
 MJS_PRIVATE const char *opcodetostr(uint8_t opcode);
 MJS_PRIVATE size_t mjs_disasm_single(const uint8_t *code, size_t i);
+#endif
+
 MJS_PRIVATE const char *mjs_stringify_type(enum mjs_type t);
 
 /*
@@ -4241,7 +4244,9 @@ MJS_PRIVATE mjs_err_t mjs_execute(struct mjs *mjs, size_t off, mjs_val_t *res) {
 #endif
 
     code = (const uint8_t *) bp.data.p;
+#if MJS_ENABLE_DEBUG
     mjs_disasm_single(code, i);
+#endif
     prev_opcode = opcode;
     opcode = code[i];
     switch (opcode) {
@@ -9643,6 +9648,8 @@ void mjs_fprintf(mjs_val_t v, struct mjs *mjs, FILE *fp) {
   mjs_jprintf(v, mjs, &out);
 }
 
+#if MJS_ENABLE_DEBUG
+
 MJS_PRIVATE const char *opcodetostr(uint8_t opcode) {
   static const char *names[] = {
       "NOP", "DROP", "DUP", "SWAP", "JMP", "JMP_TRUE", "JMP_NEUTRAL_TRUE",
@@ -9820,8 +9827,6 @@ void mjs_disasm(const uint8_t *code, size_t len) {
     }
   }
 }
-
-#if MJS_ENABLE_DEBUG
 
 static void mjs_dump_obj_stack(const char *name, const struct mbuf *m,
                                struct mjs *mjs) {
