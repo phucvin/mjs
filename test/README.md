@@ -14,4 +14,4 @@ gcc test/t01.c mjs.c -o test/t01.out && test/t01.out
 
 
 See also:
-- https://github.com/cesanta/elk smaller, but no VM, just interepting AST
+- https://github.com/cesanta/elk smaller, no VM, just interepting AST, but seems a bit faster than mJS
